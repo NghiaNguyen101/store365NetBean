@@ -11,13 +11,20 @@ package com.cpe365.store.GUI;
  */
 public class Confirmation extends javax.swing.JFrame {
 
+    String customerName;
+    String customerAddress;
+    String customerCcn;
+    
     /**
      * Creates new form Confirmation
      */
-    public Confirmation() {
+    public Confirmation(String customerName, String customerAddress, String customerCcn) {
+        this.customerName = customerName;
+        this.customerAddress = customerAddress;
+        this.customerCcn = customerCcn;
+        System.out.println(customerName);
         initComponents();
         setLocationRelativeTo(null);
-        
     }
 
     /**
@@ -94,11 +101,11 @@ public class Confirmation extends javax.swing.JFrame {
             }
         });
 
-        creditcardField.setText("jLabel4");
+        creditcardField.setText(customerCcn);
 
-        addressField.setText("jLabel4");
+        addressField.setText(customerAddress);
 
-        nameField.setText("jLabel4");
+        nameField.setText(customerName);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -112,22 +119,19 @@ public class Confirmation extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(63, 63, 63)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 485, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(addressField)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel6)
                                 .addGroup(layout.createSequentialGroup()
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                         .addComponent(jLabel5)
                                         .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addGap(18, 18, 18)
-                                            .addComponent(creditcardField))
-                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(nameField)))))))
+                                        .addComponent(addressField)
+                                        .addComponent(creditcardField)
+                                        .addComponent(nameField))))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(261, 261, 261)
                         .addComponent(jButton1)))
@@ -196,7 +200,7 @@ public class Confirmation extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Confirmation().setVisible(true);
+                new Confirmation("TESTNAME", "TEST ADDRESS", "TEST CCN").setVisible(true);
             }
         });
     }
