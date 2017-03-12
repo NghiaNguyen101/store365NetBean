@@ -31,9 +31,11 @@ public class Confirmation extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         
-        DefaultTableModel model = (DefaultTableModel) itemsTable.getModel();
-        for(Item item : items)
-            model.addRow(new Object[]{item.getId(), item.getName(), item.getStock(), item.getPrice(), item.getPrice()*item.getStock()});
+        if(items != null){
+            DefaultTableModel model = (DefaultTableModel) itemsTable.getModel();
+            for(Item item : items)
+                model.addRow(new Object[]{item.getId(), item.getName(), item.getStock(), item.getPrice(), item.getPrice()*item.getStock()});
+        }
     }
 
     /**
@@ -151,7 +153,7 @@ public class Confirmation extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(itemsLable)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(itemsPane, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
+                .addComponent(itemsPane, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(ConfirmationButton)
                 .addContainerGap())

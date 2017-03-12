@@ -83,7 +83,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="itemsLable" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="itemsPane" pref="192" max="32767" attributes="0"/>
+              <Component id="itemsPane" pref="270" max="32767" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="ConfirmationButton" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>

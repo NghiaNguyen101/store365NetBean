@@ -134,7 +134,7 @@ public class CustomerInfo extends javax.swing.JFrame {
     }//GEN-LAST:event_nameFieldActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Confirmation confirmationFrame = new Confirmation(nameField.getText(), addressField.getText(), ccnField.getText());
+        Confirmation confirmationFrame = new Confirmation(nameField.getText(), addressField.getText(), ccnField.getText(), null);
         confirmationFrame.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
