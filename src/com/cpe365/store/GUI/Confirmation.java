@@ -152,9 +152,9 @@ public class Confirmation extends javax.swing.JFrame {
                     .addComponent(creditcardField))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
+                .addGap(13, 13, 13)
                 .addComponent(jButton1)
                 .addContainerGap())
         );
