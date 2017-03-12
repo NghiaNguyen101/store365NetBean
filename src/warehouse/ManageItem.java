@@ -11,6 +11,8 @@ package warehouse;
  */
 public class ManageItem extends javax.swing.JFrame {
 
+    AddItem addItem = null;
+    RemoveItem removeItem = null;
     /**
      * Creates new form ManageItem
      */
@@ -28,19 +30,29 @@ public class ManageItem extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        addItemButton = new javax.swing.JButton();
+        removeItemButton = new javax.swing.JButton();
+        inventoryButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setText("Warehouse Manager");
 
-        jButton1.setText("Add Item");
+        addItemButton.setText("Add Item");
+        addItemButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addItemButtonActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Remove Item");
+        removeItemButton.setText("Remove Item");
+        removeItemButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removeItemButtonActionPerformed(evt);
+            }
+        });
 
-        jButton3.setText("Check Inventory");
+        inventoryButton.setText("Check Inventory");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -53,9 +65,9 @@ public class ManageItem extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(162, 162, 162)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(removeItemButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(addItemButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(inventoryButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(125, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -64,16 +76,28 @@ public class ManageItem extends javax.swing.JFrame {
                 .addGap(30, 30, 30)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 90, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addComponent(addItemButton)
                 .addGap(18, 18, 18)
-                .addComponent(jButton2)
+                .addComponent(removeItemButton)
                 .addGap(18, 18, 18)
-                .addComponent(jButton3)
+                .addComponent(inventoryButton)
                 .addGap(61, 61, 61))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void addItemButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addItemButtonActionPerformed
+        if(addItem == null)
+            addItem = new AddItem();
+        addItem.setVisible(true);
+    }//GEN-LAST:event_addItemButtonActionPerformed
+
+    private void removeItemButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeItemButtonActionPerformed
+        if(removeItem == null)
+            removeItem = new RemoveItem();
+        removeItem.setVisible(true);
+    }//GEN-LAST:event_removeItemButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -111,9 +135,9 @@ public class ManageItem extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton addItemButton;
+    private javax.swing.JButton inventoryButton;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton removeItemButton;
     // End of variables declaration//GEN-END:variables
 }
