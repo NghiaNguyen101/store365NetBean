@@ -5,6 +5,8 @@
  */
 package com.cpe365.store.GUI;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author cptony
@@ -134,9 +136,17 @@ public class CustomerInfo extends javax.swing.JFrame {
     }//GEN-LAST:event_nameFieldActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Confirmation confirmationFrame = new Confirmation(nameField.getText(), addressField.getText(), ccnField.getText());
-        confirmationFrame.setVisible(true);
-        this.setVisible(false);
+        if(!validName(nameField.getText())){
+            JOptionPane.showMessageDialog(null, "Invalid Name");
+        } else if(!validAddress(addressField.getText())){
+            JOptionPane.showMessageDialog(null, "Invalid Address");
+        } else if(!validCcn(ccnField.getText())){
+            JOptionPane.showMessageDialog(null, "Invalid CreditcardNumber");
+        } else {
+            Confirmation confirmationFrame = new Confirmation(nameField.getText().trim(), addressField.getText().trim(), ccnField.getText().replaceAll("\\s+",""), null);
+            confirmationFrame.setVisible(true);
+            this.setVisible(false);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void addressFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addressFieldActionPerformed
@@ -194,4 +204,32 @@ public class CustomerInfo extends javax.swing.JFrame {
     private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JTextField nameField;
     // End of variables declaration//GEN-END:variables
+
+    private boolean validName(String s) {
+        if(s.trim().equals(""))
+            return false;
+        if(s.length() >= 50)
+            return false;
+        return true;
+    }
+
+    private boolean validAddress(String s) {
+        if(s.trim().equals(""))
+            return false;
+        if(s.length() >= 128)
+            return false;
+        return true;
+    }
+
+    private boolean validCcn(String s) {
+        String ccn = s.replaceAll("\\s+","");
+        if(ccn.length() != 16)
+            return false;
+        for(char c : ccn.toCharArray()){
+            if(!Character.isDigit(c))
+                return false;
+        }
+                
+        return true;       
+    }
 }

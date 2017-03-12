@@ -31,9 +31,15 @@ public class Confirmation extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         
-        DefaultTableModel model = (DefaultTableModel) itemsTable.getModel();
-        for(Item item : items)
-            model.addRow(new Object[]{item.getId(), item.getName(), item.getStock(), item.getPrice(), item.getPrice()*item.getStock()});
+        double totalPrice = 0;
+        if(items != null){
+            DefaultTableModel model = (DefaultTableModel) itemsTable.getModel();
+            for(Item item : items){
+                model.addRow(new Object[]{item.getId(), item.getName(), item.getStock(), item.getPrice(), item.getPrice()*item.getStock()});
+                totalPrice += item.getPrice()*item.getStock();
+            }
+        }
+        priceLabel.setText(Double.toString(totalPrice));
     }
 
     /**
@@ -56,6 +62,8 @@ public class Confirmation extends javax.swing.JFrame {
         creditcardField = new javax.swing.JLabel();
         addressField = new javax.swing.JLabel();
         nameField = new javax.swing.JLabel();
+        priceLabel = new javax.swing.JLabel();
+        priceField = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -74,7 +82,7 @@ public class Confirmation extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Item ID", "Item Name", "Quantity", "Price", "Total"
+                "Item ID", "Item Name", "Quantity", "Price each", "Price"
             }
         ) {
             Class[] types = new Class [] {
@@ -101,6 +109,8 @@ public class Confirmation extends javax.swing.JFrame {
 
         nameField.setText(customerName);
 
+        priceLabel.setText("Price:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -111,10 +121,18 @@ public class Confirmation extends javax.swing.JFrame {
                         .addGap(258, 258, 258)
                         .addComponent(titleLable))
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(261, 261, 261)
+                        .addComponent(ConfirmationButton))
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(63, 63, 63)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(itemsPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 485, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(12, 12, 12)
+                                .addComponent(priceLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(priceField, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(itemsPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 485, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(itemsLable)
                                 .addGroup(layout.createSequentialGroup()
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -125,10 +143,7 @@ public class Confirmation extends javax.swing.JFrame {
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(addressField)
                                         .addComponent(creditcardField)
-                                        .addComponent(nameField))))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(261, 261, 261)
-                        .addComponent(ConfirmationButton)))
+                                        .addComponent(nameField)))))))
                 .addContainerGap(110, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -149,19 +164,16 @@ public class Confirmation extends javax.swing.JFrame {
                     .addComponent(ccnLable)
                     .addComponent(creditcardField))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-<<<<<<< HEAD
-                .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
-                .addGap(13, 13, 13)
-                .addComponent(jButton1)
-=======
+
                 .addComponent(itemsLable)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(itemsPane, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
+                .addComponent(itemsPane, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(priceLabel)
+                    .addComponent(priceField))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addComponent(ConfirmationButton)
->>>>>>> 752936b17955aee339a8fd55fa5f72aeea9f2159
                 .addContainerGap())
         );
 
@@ -224,6 +236,8 @@ public class Confirmation extends javax.swing.JFrame {
     private javax.swing.JTable itemsTable;
     private javax.swing.JLabel nameField;
     private javax.swing.JLabel nameLable;
+    private javax.swing.JLabel priceField;
+    private javax.swing.JLabel priceLabel;
     private javax.swing.JLabel titleLable;
     // End of variables declaration//GEN-END:variables
 }

@@ -23,6 +23,7 @@ public class AddItem extends javax.swing.JFrame {
     public AddItem() {
         initComponents();
         itemDAO = new ItemDAO();
+        resetFields();
     }
 
     /**
@@ -34,6 +35,7 @@ public class AddItem extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jInternalFrame1 = new javax.swing.JInternalFrame();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -47,13 +49,26 @@ public class AddItem extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         manufacturerTextField = new javax.swing.JTextField();
 
-        jLabel1.setText("Item Name");
+        jInternalFrame1.setVisible(true);
 
-        jLabel2.setText("Stock");
+        javax.swing.GroupLayout jInternalFrame1Layout = new javax.swing.GroupLayout(jInternalFrame1.getContentPane());
+        jInternalFrame1.getContentPane().setLayout(jInternalFrame1Layout);
+        jInternalFrame1Layout.setHorizontalGroup(
+            jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jInternalFrame1Layout.setVerticalGroup(
+            jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
 
-        jLabel3.setText("Description");
+        jLabel1.setText("Item Name:");
 
-        jLabel4.setText("Price");
+        jLabel2.setText("Stock:");
+
+        jLabel3.setText("Description:");
+
+        jLabel4.setText("Price:");
 
         nameTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -79,7 +94,7 @@ public class AddItem extends javax.swing.JFrame {
             }
         });
 
-        jLabel5.setText("Add Item");
+        jLabel5.setText("Add New Item");
 
         jButton1.setText("Add");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -88,37 +103,36 @@ public class AddItem extends javax.swing.JFrame {
             }
         });
 
-        jLabel6.setText("Manufacturer");
+        jLabel6.setText("Manufacturer:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(157, 157, 157)
+                .addComponent(jLabel5)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(155, 155, 155)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(34, 34, 34)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel3)
-                                .addComponent(jLabel1))
+                            .addComponent(jLabel3)
                             .addComponent(jLabel4)
                             .addComponent(jLabel2)
-                            .addComponent(jLabel6))
-                        .addGap(43, 43, 43)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(priceTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
-                            .addComponent(descriptionTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
-                            .addComponent(stockTextField)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(stockTextField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)
+                            .addComponent(manufacturerTextField, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(descriptionTextField, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(nameTextField)
-                            .addComponent(manufacturerTextField))))
-                .addContainerGap(80, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                            .addComponent(priceTextField))))
                 .addGap(34, 34, 34))
         );
         layout.setVerticalGroup(
@@ -126,29 +140,29 @@ public class AddItem extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(15, 15, 15)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(nameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
+                .addGap(15, 15, 15)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(descriptionTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(manufacturerTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(31, 31, 31)
+                .addGap(15, 15, 15)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(stockTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(priceTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(15, 15, 15)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(priceTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
+                .addGap(15, 15, 15)
                 .addComponent(jButton1)
-                .addGap(19, 19, 19))
+                .addGap(15, 15, 15))
         );
 
         pack();
@@ -163,11 +177,11 @@ public class AddItem extends javax.swing.JFrame {
 
         // TODO add your handling code here:
         if(isValidInput()) {
-            String name = nameTextField.getText().trim();
-            String description = descriptionTextField.getText().trim();
-            int stock = Integer.parseInt(stockTextField.getText().trim());
-            double price = Double.parseDouble(priceTextField.getText().trim());
-            String manufacturer = manufacturerTextField.getText().trim();
+            String name = nameTextField.getText();
+            String description = descriptionTextField.getText();
+            int stock = Integer.parseInt(stockTextField.getText());
+            double price = Double.parseDouble(priceTextField.getText());
+            String manufacturer = manufacturerTextField.getText();
             
             try {
                 itemDAO.postItem(name, price, description, manufacturer, stock);
@@ -175,6 +189,7 @@ public class AddItem extends javax.swing.JFrame {
                 resetFields();
                 nameTextField.requestFocusInWindow();
             } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(this, "Failed to add item, please try again!");
                 Logger.getLogger(AddItem.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
@@ -191,11 +206,18 @@ public class AddItem extends javax.swing.JFrame {
     
     // Check valid input
     private boolean isValidInput() {
-        if ("".equals(nameTextField.getText().trim())
-            || "".equals(descriptionTextField.getText().trim())
-            || "".equals(stockTextField.getText().trim())
-            || "".equals(priceTextField.getText().trim())
-            || "".equals(manufacturerTextField.getText().trim())) {
+        // Trim
+        nameTextField.setText(nameTextField.getText().trim());
+        descriptionTextField.setText(descriptionTextField.getText().trim());
+        stockTextField.setText(stockTextField.getText().trim());
+        priceTextField.setText(priceTextField.getText().trim());
+        manufacturerTextField.setText(manufacturerTextField.getText().trim());
+        
+        if ("".equals(nameTextField.getText())
+            || "".equals(descriptionTextField.getText())
+            || "".equals(stockTextField.getText())
+            || "".equals(priceTextField.getText())
+            || "".equals(manufacturerTextField.getText())) {
             JOptionPane.showMessageDialog(this, "Missing fields!");
             return false;
         }   
@@ -272,6 +294,7 @@ public class AddItem extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField descriptionTextField;
     private javax.swing.JButton jButton1;
+    private javax.swing.JInternalFrame jInternalFrame1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
