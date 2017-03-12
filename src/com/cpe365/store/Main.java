@@ -4,8 +4,11 @@ package com.cpe365.store; /**
 
 import java.sql.SQLException;
 import java.util.List;
-import com.cpe365.store.Data.Item;
+import java.util.LinkedList;
+import com.cpe365.store.Data.*;
 import com.cpe365.store.DAO.ItemDAO;
+import com.cpe365.store.DAO.TransactionDAO;
+import com.cpe365.store.DAO.PurchaseDAO;
 
 public class Main {
     public static void main(String [] args) throws SQLException
@@ -16,6 +19,21 @@ public class Main {
         for (Item item : itemList) {
             System.out.println(item.toString());
         }
-        //ListItemView view = new ListItemView();
+        
+        TransactionDAO transactionDAO = new TransactionDAO();
+        TransactionDetail transactionDetail = transactionDAO.getTransactionDetail(3);
+        for(SelectItem item : transactionDetail.getCart()) {
+            System.out.println(item.toString());
+        }
+        //itemDao.deleteItem(6);
+        //transactionDAO = new TransactionDAO();
+        List<SelectItem> cart = new LinkedList();
+        cart.add(new SelectItem(1, 2, 24.99));
+        cart.add(new SelectItem(2, 1, 14.99));
+        cart.add(new SelectItem(3, 1, 49.99));
+        boolean res = transactionDAO.postTransaction("Nghia", "Some Where", "123456789", cart);
+        //PurchaseDAO purchaseDAO = new PurchaseDAO();
+        //purchaseDAO.postPurchases(8, cart);
+
     }
 }
