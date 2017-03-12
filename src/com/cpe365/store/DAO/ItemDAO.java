@@ -62,7 +62,7 @@ public class ItemDAO {
      * @return itemList - list of items
      */
     public List<Item> getAllItems() throws  SQLException {
-        String query = "SELECT * FROM itemTable";
+        String query = "SELECT * FROM itemTable WHERE discontinued=0 AND stock>0";
         ResultSet rs = null;
         List<Item> itemList = new LinkedList<Item>();
 
@@ -98,7 +98,8 @@ public class ItemDAO {
      * @return itemList - list of items match the key
      */
     public List<Item> searchItems(String key) throws SQLException {
-        String query = "SELECT * FROM itemTable WHERE name LIKE ?";
+        String query = "SELECT * FROM itemTable WHERE name LIKE ? AND discontinued = 0 " +
+                       "AND stock > 0";
         ResultSet rs = null;
         List<Item> itemList = new LinkedList<Item>();
         key = key.replace("!", "!!")
@@ -255,7 +256,8 @@ public class ItemDAO {
             // Get connection
             connection = ConnectionFactory.getConnection();
             preparedStatement = connection.prepareStatement(query);
-
+            connection.setAutoCommit(false);
+            
             // Prepare
             preparedStatement.setString(1, name);
             preparedStatement.setDouble(2, price);
@@ -306,7 +308,8 @@ public class ItemDAO {
             // Get connection
             connection = ConnectionFactory.getConnection();
             preparedStatement = connection.prepareStatement(query);
-
+            connection.setAutoCommit(false);
+            
             // Prepare
             for (Item item : itemList) {
                 preparedStatement.setString(1, item.getName());
@@ -339,6 +342,42 @@ public class ItemDAO {
         return success;
     }
 
+    /**
+     * Delete Specific item base on id
+     * @param item_id
+     * 
+     * @return true or false for succeed or not
+     */
+    public boolean deleteItem(int item_id) throws SQLException {
+        String query = "UPDATE itemTable SET discontinued=1 WHERE id=?";
+        boolean success = true;
+        
+        try {
+            connection = ConnectionFactory.getConnection();
+            preparedStatement = connection.prepareStatement(query);
+            connection.setAutoCommit(false);
+            
+            preparedStatement.setInt(1, item_id);
+            int row = preparedStatement.executeUpdate();
+            
+            if(row == 0) {
+              throw new SQLException("No item found for delete");  
+            } 
+            connection.commit();
+        } catch (SQLException e) {
+           System.out.println("Error delete item");
+            e.printStackTrace();
+            success = false;
+            if (connection != null)
+                connection.rollback();
+        } finally {
+            // Close connection
+            DbUtil.close(preparedStatement);
+            DbUtil.close(connection);
+        }
+        return success;
+    }
+    
     /**
      * Get item object from result set from mysql
      * @param rs - result set
