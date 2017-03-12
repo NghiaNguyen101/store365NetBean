@@ -5,19 +5,72 @@
  */
 package warehouse;
 
+import com.cpe365.store.DAO.ItemDAO;
+import com.cpe365.store.Data.Item;
+import java.util.List;
+import static java.lang.System.exit;
+import javax.swing.table.DefaultTableModel;
+
+
 /**
  *
  * @author Owner
  */
 public class RemoveItem extends javax.swing.JFrame {
+    ItemDAO itemDAO; 
+    List<Item> itemList;
+    DefaultTableModel model;
+    
 
     /**
      * Creates new form RemoveItem
      */
     public RemoveItem() {
         initComponents();
+        
+        itemDAO = new ItemDAO();
+        model = (DefaultTableModel) this.jTable1.getModel();
+        
+        try{
+            itemList = itemDAO.getAllItems();
+            setItems(itemList);
+        }
+        catch (Exception e) {
+            System.out.println("Failed to retrieve items");
+            exit(0);
+        }
+    }
+    
+    private void setItems(List<Item> itemList) {
+        int rowCount = model.getRowCount();
+        
+        for (int i = rowCount - 1; i >= 0; i--) {
+            model.removeRow(i);
+        }
+
+        for (Item i : itemList) {
+            int id = i.getId();
+            String iName = i.getName();
+            double price = i.getPrice();
+            int amount = i.getStock();
+            
+            Object[] row = new Object[]{Integer.toString(id), iName, Double.toString(price), Integer.toString(amount)};
+            model.addRow(row);
+        }
     }
 
+    /**
+     * Removes item from database
+     */
+    private void removeItemDB(int itemID) {
+        try{
+            itemDAO.deleteItem(itemID);
+        } catch (Exception e) {
+            System.out.println("Could not delete item");
+            exit(0);
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -45,16 +98,15 @@ public class RemoveItem extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
-                "Item", "Price", "Stock"
+                "ID", "Item", "Price", "Stock"
             }
         ));
+        jTable1.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(jTable1);
+        jTable1.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -90,6 +142,20 @@ public class RemoveItem extends javax.swing.JFrame {
 
     private void removeItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeItemActionPerformed
         // TODO add your handling code here:
+        int row = jTable1.getSelectedRow();
+        
+        int id = Integer.parseInt((String) model.getValueAt(row, 0));
+        
+        removeItemDB(id);
+        
+        try{
+            itemList = itemDAO.getAllItems();
+            setItems(itemList);
+        }
+        catch (Exception e) {
+            System.out.println("Failed to retrieve items");
+            exit(0);
+        }
     }//GEN-LAST:event_removeItemActionPerformed
 
     /**
