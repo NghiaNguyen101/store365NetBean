@@ -23,6 +23,7 @@ public class AddItem extends javax.swing.JFrame {
     public AddItem() {
         initComponents();
         itemDAO = new ItemDAO();
+        resetFields();
     }
 
     /**
@@ -163,11 +164,11 @@ public class AddItem extends javax.swing.JFrame {
 
         // TODO add your handling code here:
         if(isValidInput()) {
-            String name = nameTextField.getText().trim();
-            String description = descriptionTextField.getText().trim();
-            int stock = Integer.parseInt(stockTextField.getText().trim());
-            double price = Double.parseDouble(priceTextField.getText().trim());
-            String manufacturer = manufacturerTextField.getText().trim();
+            String name = nameTextField.getText();
+            String description = descriptionTextField.getText();
+            int stock = Integer.parseInt(stockTextField.getText());
+            double price = Double.parseDouble(priceTextField.getText());
+            String manufacturer = manufacturerTextField.getText();
             
             try {
                 itemDAO.postItem(name, price, description, manufacturer, stock);
@@ -175,6 +176,7 @@ public class AddItem extends javax.swing.JFrame {
                 resetFields();
                 nameTextField.requestFocusInWindow();
             } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(this, "Failed to add item, please try again!");
                 Logger.getLogger(AddItem.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
@@ -191,11 +193,18 @@ public class AddItem extends javax.swing.JFrame {
     
     // Check valid input
     private boolean isValidInput() {
-        if ("".equals(nameTextField.getText().trim())
-            || "".equals(descriptionTextField.getText().trim())
-            || "".equals(stockTextField.getText().trim())
-            || "".equals(priceTextField.getText().trim())
-            || "".equals(manufacturerTextField.getText().trim())) {
+        // Trim
+        nameTextField.setText(nameTextField.getText().trim());
+        descriptionTextField.setText(descriptionTextField.getText().trim());
+        stockTextField.setText(stockTextField.getText().trim());
+        priceTextField.setText(priceTextField.getText().trim());
+        manufacturerTextField.setText(manufacturerTextField.getText().trim());
+        
+        if ("".equals(nameTextField.getText())
+            || "".equals(descriptionTextField.getText())
+            || "".equals(stockTextField.getText())
+            || "".equals(priceTextField.getText())
+            || "".equals(manufacturerTextField.getText())) {
             JOptionPane.showMessageDialog(this, "Missing fields!");
             return false;
         }   

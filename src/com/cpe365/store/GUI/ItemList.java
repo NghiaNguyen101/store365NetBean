@@ -5,17 +5,72 @@
  */
 package com.cpe365.store.GUI;
 
+import com.cpe365.store.DAO.ItemDAO;
+import com.cpe365.store.Data.Item;
+import static java.lang.System.exit;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.DefaultListModel;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Owner
  */
 public class ItemList extends javax.swing.JFrame {
 
+    ItemDAO itemDAO; 
+    List itemList;
+    DefaultTableModel model;
+    DefaultListModel listmodel;
+    List<Item> cartItem;
+    
+    protected final void setItems(List<Item> items)
+    {
+        //restart all
+        int rowCount = model.getRowCount();
+        //Remove rows one by one from the end of the table
+        for (int i = rowCount - 1; i >= 0; i--) {
+            model.removeRow(i);
+        }
+        for(Item x : items)
+        {
+            String item = x.getName();
+            int id = x.getId();
+            String description = x.getDescription();
+            double price = x.getPrice();
+            
+            Object[] row = new Object[]{Integer.toString(id), item, description, Double.toString(price)};
+            model.addRow(row);
+        }
+    }
     /**
      * Creates new form ItemList
      */
     public ItemList() {
         initComponents();
+        itemDAO= new ItemDAO();
+        model = (DefaultTableModel) this.tableItemList.getModel();
+        listmodel=new DefaultListModel();
+        listmodel.removeAllElements();
+        //cartItem = new List<Item>();
+        
+        try 
+        {
+            
+            itemList = itemDAO.getAllItems();
+            setItems(itemList);
+            
+        }
+        catch (Exception e)
+        {
+            System.out.println("Can't retrieve");
+            exit(0);
+        }
+            
     }
 
     /**
@@ -62,19 +117,17 @@ public class ItemList extends javax.swing.JFrame {
 
         tableItemList.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
-                "Item", "Item", "Price"
+                "ID", "Item", "Description", "Price"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                false, true, true
+                true, false, true, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -90,7 +143,7 @@ public class ItemList extends javax.swing.JFrame {
         jLabel1.setText("Current Cart");
 
         listCurrentItem.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            String[] strings = {};
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
@@ -151,6 +204,17 @@ public class ItemList extends javax.swing.JFrame {
 
     private void addItemButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addItemButtonActionPerformed
         // TODO add your handling code here:
+        int columnID = 0;
+        int columnName = 0;
+        int row = tableItemList.getSelectedRow();
+        
+        //get id
+        String idString = model.getValueAt(row, columnID).toString();
+        
+        
+        //get name
+        String name= model.getValueAt(row, columnName).toString();
+        
     }//GEN-LAST:event_addItemButtonActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -165,11 +229,24 @@ public class ItemList extends javax.swing.JFrame {
         System.out.println(searchText);
         if (searchText.equals(""))
         {
-            //return all
+            try {
+                //return all
+                this.itemList = itemDAO.getAllItems();
+            } catch (SQLException ex) {
+                Logger.getLogger(ItemList.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         else {//perform search
-            
+            this.itemList.clear();
+            try 
+            {
+                this.itemList = itemDAO.searchItems(searchText);
+                
+            } catch (SQLException ex) {
+                Logger.getLogger(ItemList.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
+        setItems(itemList);
     }//GEN-LAST:event_searchButtonActionPerformed
 
     /**
@@ -207,6 +284,7 @@ public class ItemList extends javax.swing.JFrame {
         });
     }
 
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addItemButton;
     private javax.swing.JButton jButton3;

@@ -87,6 +87,13 @@
                   <Component id="creditcardField" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
+<<<<<<< HEAD
+              <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Component id="jScrollPane2" pref="192" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
+              <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+=======
               <Component id="itemsLable" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="itemsPane" min="-2" pref="246" max="-2" attributes="0"/>
@@ -97,6 +104,7 @@
               </Group>
               <EmptySpace pref="12" max="32767" attributes="0"/>
               <Component id="ConfirmationButton" min="-2" max="-2" attributes="0"/>
+>>>>>>> 752936b17955aee339a8fd55fa5f72aeea9f2159
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
