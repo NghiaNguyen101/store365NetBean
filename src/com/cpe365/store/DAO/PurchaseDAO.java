@@ -71,7 +71,7 @@ public class PurchaseDAO {
             System.out.println("Cart is empty - purchases!");
             return false;
         }
-
+                    
         String query = "INSERT INTO purchaseTable (transaction_id, item_id," +
                 "qty, price) VALUES (?,?,?,?)";
         boolean success = true;
@@ -83,14 +83,14 @@ public class PurchaseDAO {
             connection.setAutoCommit(false);
 
             // Prepare statment for all items
-            for (SelectItem item:cart) {
+            for (SelectItem item : cart) {
                 preparedStatement.setInt(1, transaction_id);
                 preparedStatement.setInt(2, item.getItem_id());
                 preparedStatement.setInt(3, item.getQty());
                 preparedStatement.setDouble(4, item.getPrice());
                 preparedStatement.addBatch();
             }
-
+            
             // Execute batch
             preparedStatement.executeBatch();
             connection.commit();
@@ -120,6 +120,7 @@ public class PurchaseDAO {
      */
     private Purchase purchaseMapper(ResultSet rs) throws SQLException {
         return new Purchase(
+                rs.getInt("id"),
                 rs.getInt("transaction_id"),
                 rs.getInt("item_id"),
                 rs.getInt("qty"),

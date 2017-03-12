@@ -77,7 +77,6 @@ public class TransactionDAO {
         String query = "SELECT * FROM transactionTable WHERE id=? ";
         ResultSet rs = null;
         TransactionDetail transactionDetail = null;
-
         try {
             // Get connection
             connection = ConnectionFactory.getConnection();
@@ -101,7 +100,6 @@ public class TransactionDAO {
                                                         purchase.getQty(),
                                                         purchase.getPrice()))
                         .collect(Collectors.toList());
-
                 // make a transactionDetail object
                 transactionDetail = new TransactionDetail(
                         transaction_id,
@@ -124,19 +122,21 @@ public class TransactionDAO {
 
     /**
      * Insert new transaction
-     * @param customer_id - customer in question
+     * @param name - customer name in question
+     * @param address - address of customer
      * @param credit_card - card being used
      * @param cart - list of selected items
      *
      * @return boolean - true if success, false if not
      */
-    public boolean postTransaction(int customer_id, String credit_card,
+    public boolean postTransaction(String name, String address, String credit_card,
                                    List<SelectItem> cart) throws SQLException {
         if (cart.size() < 1) {
             System.out.println("Cart is empty!");
             return false;
         }
-
+        
+        int customer_id = customerDAO.postCustomer(name, address);
         String query = "INSERT INTO transactionTable (customer_id, " +
                 "credit_card, amount, purchase_date) VALUES (?,?,?,NOW())";
 
@@ -146,7 +146,6 @@ public class TransactionDAO {
         for (SelectItem item: cart) {
             amount += item.getTotalPrice();
         }
-
         try {
             // Get connection
             connection = ConnectionFactory.getConnection();
@@ -168,14 +167,9 @@ public class TransactionDAO {
 
             if (rs.next()) {
                 int transaction_id = rs.getInt(1);
-
+                connection.commit();
                 // Add purchases to purchaseTable
-                if(!purchaseDAO.postPurchases(transaction_id, cart)) {
-                    connection.rollback();
-                    success = false;
-                } else {
-                    connection.commit();
-                }
+                purchaseDAO.postPurchases(transaction_id, cart);      
             } else {
                 throw new SQLException ("No value for return insert id");
             }
