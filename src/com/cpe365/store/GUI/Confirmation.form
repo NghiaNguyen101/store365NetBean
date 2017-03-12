@@ -30,10 +30,20 @@
                       <Component id="titleLable" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="261" max="-2" attributes="0"/>
+                      <Component id="ConfirmationButton" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="63" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="itemsPane" alignment="1" min="-2" pref="485" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <EmptySpace min="12" pref="12" max="-2" attributes="0"/>
+                              <Component id="priceLabel" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="priceField" min="-2" pref="104" max="-2" attributes="0"/>
+                          </Group>
                           <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="itemsPane" alignment="1" min="-2" pref="485" max="-2" attributes="0"/>
                               <Component id="itemsLable" min="-2" max="-2" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
                                   <Group type="103" groupAlignment="1" attributes="0">
@@ -50,10 +60,6 @@
                               </Group>
                           </Group>
                       </Group>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="261" max="-2" attributes="0"/>
-                      <Component id="ConfirmationButton" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace pref="110" max="32767" attributes="0"/>
@@ -83,8 +89,13 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="itemsLable" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="itemsPane" pref="270" max="32767" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="itemsPane" min="-2" pref="246" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="priceLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="priceField" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace pref="12" max="32767" attributes="0"/>
               <Component id="ConfirmationButton" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -131,8 +142,8 @@
                 <Column editable="true" title="Item ID" type="java.lang.String"/>
                 <Column editable="true" title="Item Name" type="java.lang.String"/>
                 <Column editable="true" title="Quantity" type="java.lang.Integer"/>
+                <Column editable="true" title="Price each" type="java.lang.Double"/>
                 <Column editable="true" title="Price" type="java.lang.Double"/>
-                <Column editable="true" title="Total" type="java.lang.Double"/>
               </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -200,6 +211,13 @@
           <Connection code="customerName" type="code"/>
         </Property>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="priceLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Price:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="priceField">
     </Component>
   </SubComponents>
 </Form>
