@@ -4,18 +4,26 @@
  * and open the template in the editor.
  */
 package warehouse;
+import com.cpe365.store.DAO.ItemDAO;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Owner
  */
 public class AddItem extends javax.swing.JFrame {
-
+    private ItemDAO itemDAO;
+    
     /**
      * Creates new form AddItem
      */
     public AddItem() {
         initComponents();
+        itemDAO = new ItemDAO();
+        resetFields();
     }
 
     /**
@@ -31,35 +39,46 @@ public class AddItem extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
+        nameTextField = new javax.swing.JTextField();
+        descriptionTextField = new javax.swing.JTextField();
+        stockTextField = new javax.swing.JTextField();
+        priceTextField = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        jLabel6 = new javax.swing.JLabel();
+        manufacturerTextField = new javax.swing.JTextField();
 
         jLabel1.setText("Item Name");
 
-        jLabel2.setText("Amount");
+        jLabel2.setText("Stock");
 
         jLabel3.setText("Description");
 
         jLabel4.setText("Price");
 
-        jTextField1.setText("jTextField1");
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        nameTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                nameTextFieldActionPerformed(evt);
             }
         });
 
-        jTextField2.setText("jTextField2");
+        descriptionTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                descriptionTextFieldActionPerformed(evt);
+            }
+        });
 
-        jTextField3.setText("jTextField3");
+        stockTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                stockTextFieldActionPerformed(evt);
+            }
+        });
 
-        jTextField4.setText("jTextField4");
+        priceTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                priceTextFieldActionPerformed(evt);
+            }
+        });
 
         jLabel5.setText("Add Item");
 
@@ -70,6 +89,8 @@ public class AddItem extends javax.swing.JFrame {
             }
         });
 
+        jLabel6.setText("Manufacturer");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -77,27 +98,29 @@ public class AddItem extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(155, 155, 155)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(34, 34, 34)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel3)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel4)
-                                .addComponent(jLabel2)
-                                .addComponent(jLabel1)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel3)
+                                .addComponent(jLabel1))
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel6))
                         .addGap(43, 43, 43)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
-                            .addComponent(jTextField2)
-                            .addComponent(jTextField3)
-                            .addComponent(jTextField1)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(155, 155, 155)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(91, Short.MAX_VALUE))
+                            .addComponent(priceTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
+                            .addComponent(descriptionTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
+                            .addComponent(stockTextField)
+                            .addComponent(nameTextField)
+                            .addComponent(manufacturerTextField))))
+                .addContainerGap(80, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jButton1)
-                .addGap(42, 42, 42))
+                .addGap(34, 34, 34))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -107,35 +130,118 @@ public class AddItem extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(nameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(29, 29, 29)
+                    .addComponent(descriptionTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(manufacturerTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
+                    .addComponent(stockTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(priceTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jButton1)
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addGap(19, 19, 19))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void nameTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nameTextFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_nameTextFieldActionPerformed
 
     //add the item
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // USE postItem
+
+        // TODO add your handling code here:
+        if(isValidInput()) {
+            String name = nameTextField.getText();
+            String description = descriptionTextField.getText();
+            int stock = Integer.parseInt(stockTextField.getText());
+            double price = Double.parseDouble(priceTextField.getText());
+            String manufacturer = manufacturerTextField.getText();
+            
+            try {
+                itemDAO.postItem(name, price, description, manufacturer, stock);
+                JOptionPane.showMessageDialog(this, "Added item succesful!");
+                resetFields();
+                nameTextField.requestFocusInWindow();
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(this, "Failed to add item, please try again!");
+                Logger.getLogger(AddItem.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    // Reset fields
+    private void resetFields() {
+        nameTextField.setText("");
+        descriptionTextField.setText("");
+        stockTextField.setText("");
+        priceTextField.setText("");
+        manufacturerTextField.setText("");
+    }
+    
+    // Check valid input
+    private boolean isValidInput() {
+        // Trim
+        nameTextField.setText(nameTextField.getText().trim());
+        descriptionTextField.setText(descriptionTextField.getText().trim());
+        stockTextField.setText(stockTextField.getText().trim());
+        priceTextField.setText(priceTextField.getText().trim());
+        manufacturerTextField.setText(manufacturerTextField.getText().trim());
+        
+        if ("".equals(nameTextField.getText())
+            || "".equals(descriptionTextField.getText())
+            || "".equals(stockTextField.getText())
+            || "".equals(priceTextField.getText())
+            || "".equals(manufacturerTextField.getText())) {
+            JOptionPane.showMessageDialog(this, "Missing fields!");
+            return false;
+        }   
+        // Check stock
+        try {
+            int stock = Integer.parseInt(stockTextField.getText().trim());
+            stockTextField.requestFocusInWindow();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Incorrect datatype, number only!");
+            stockTextField.setText("");
+            stockTextField.requestFocusInWindow();
+            return false;
+        }
+        // Check price
+        try {
+            double price = Double.parseDouble(priceTextField.getText().trim());
+            priceTextField.requestFocusInWindow();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Incorrect datatype, decimal only!");
+            priceTextField.setText("");
+            priceTextField.requestFocusInWindow();
+            return false;
+        }
+        return true;
+    }
+    
+    private void descriptionTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_descriptionTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_descriptionTextFieldActionPerformed
+
+    private void stockTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stockTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_stockTextFieldActionPerformed
+
+    private void priceTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_priceTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_priceTextFieldActionPerformed
 
     /**
      * @param args the command line arguments
@@ -173,15 +279,17 @@ public class AddItem extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField descriptionTextField;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JTextField manufacturerTextField;
+    private javax.swing.JTextField nameTextField;
+    private javax.swing.JTextField priceTextField;
+    private javax.swing.JTextField stockTextField;
     // End of variables declaration//GEN-END:variables
 }

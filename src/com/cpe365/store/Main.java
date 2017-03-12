@@ -9,11 +9,13 @@ import com.cpe365.store.Data.*;
 import com.cpe365.store.DAO.ItemDAO;
 import com.cpe365.store.DAO.TransactionDAO;
 import com.cpe365.store.DAO.PurchaseDAO;
+import com.cpe365.store.GUI.ItemList;
 
 public class Main {
     public static void main(String [] args) throws SQLException
     {
         System.out.println("hello world!");
+        /**
         ItemDAO itemDao = new ItemDAO();
         List<Item> itemList = itemDao.searchItems("B");
         for (Item item : itemList) {
@@ -32,8 +34,10 @@ public class Main {
         cart.add(new SelectItem(2, 1, 14.99));
         cart.add(new SelectItem(3, 1, 49.99));
         boolean res = transactionDAO.postTransaction("Nghia", "Some Where", "123456789", cart);
+        */
         //PurchaseDAO purchaseDAO = new PurchaseDAO();
         //purchaseDAO.postPurchases(8, cart);
-
+        ItemList itemList = new ItemList();
+        itemList.setVisible(true);
     }
 }
