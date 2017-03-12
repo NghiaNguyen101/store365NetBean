@@ -47,8 +47,6 @@ public class AddItem extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         manufacturerTextField = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
         jLabel1.setText("Item Name");
 
         jLabel2.setText("Stock");
