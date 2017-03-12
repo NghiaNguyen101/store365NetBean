@@ -164,13 +164,7 @@ public class Confirmation extends javax.swing.JFrame {
                     .addComponent(ccnLable)
                     .addComponent(creditcardField))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-<<<<<<< HEAD
-                .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
-                .addGap(13, 13, 13)
-                .addComponent(jButton1)
-=======
+
                 .addComponent(itemsLable)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(itemsPane, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -180,7 +174,6 @@ public class Confirmation extends javax.swing.JFrame {
                     .addComponent(priceField))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addComponent(ConfirmationButton)
->>>>>>> 752936b17955aee339a8fd55fa5f72aeea9f2159
                 .addContainerGap())
         );
 
