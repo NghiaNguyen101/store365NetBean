@@ -5,6 +5,11 @@
  */
 package com.cpe365.store.GUI;
 
+import com.cpe365.store.Data.Item;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author cptony
@@ -14,17 +19,21 @@ public class Confirmation extends javax.swing.JFrame {
     String customerName;
     String customerAddress;
     String customerCcn;
-    
+    List<Item> items;
     /**
      * Creates new form Confirmation
      */
-    public Confirmation(String customerName, String customerAddress, String customerCcn) {
+    public Confirmation(String customerName, String customerAddress, String customerCcn, List<Item> items) {
         this.customerName = customerName;
         this.customerAddress = customerAddress;
         this.customerCcn = customerCcn;
-        System.out.println(customerName);
+        this.items = items;
         initComponents();
         setLocationRelativeTo(null);
+        
+        DefaultTableModel model = (DefaultTableModel) itemsTable.getModel();
+        for(Item item : items)
+            model.addRow(new Object[]{item.getId(), item.getName(), item.getStock(), item.getPrice(), item.getPrice()*item.getStock()});
     }
 
     /**
@@ -36,68 +45,53 @@ public class Confirmation extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
+        titleLable = new javax.swing.JLabel();
+        nameLable = new javax.swing.JLabel();
+        addressLable = new javax.swing.JLabel();
+        ccnLable = new javax.swing.JLabel();
+        itemsLable = new javax.swing.JLabel();
+        itemsPane = new javax.swing.JScrollPane();
         itemsTable = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        ConfirmationButton = new javax.swing.JButton();
         creditcardField = new javax.swing.JLabel();
         addressField = new javax.swing.JLabel();
         nameField = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("Confirmation");
+        titleLable.setText("Confirmation");
 
-        jLabel2.setText("Name:");
+        nameLable.setText("Name:");
 
-        jLabel3.setText("Address:");
+        addressLable.setText("Address:");
 
-        jLabel5.setText("Creditcard Number:");
+        ccnLable.setText("Creditcard Number:");
 
-        jLabel6.setText("Items:");
+        itemsLable.setText("Items:");
 
         itemsTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Item", "Quantity", "Price", "Total"
+                "Item ID", "Item Name", "Quantity", "Price", "Total"
             }
-        ));
-        itemsTable.setName(""); // NOI18N
-        jScrollPane2.setViewportView(itemsTable);
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Double.class, java.lang.Double.class
+            };
 
-        jButton1.setText("Confirm Order");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        itemsTable.setName(""); // NOI18N
+        itemsPane.setViewportView(itemsTable);
+
+        ConfirmationButton.setText("Confirm Order");
+        ConfirmationButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                ConfirmationButtonActionPerformed(evt);
             }
         });
 
@@ -115,18 +109,18 @@ public class Confirmation extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(258, 258, 258)
-                        .addComponent(jLabel1))
+                        .addComponent(titleLable))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(63, 63, 63)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 485, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(itemsPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 485, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel6)
+                                .addComponent(itemsLable)
                                 .addGroup(layout.createSequentialGroup()
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(jLabel5)
-                                        .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING))
+                                        .addComponent(ccnLable)
+                                        .addComponent(addressLable, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(nameLable, javax.swing.GroupLayout.Alignment.LEADING))
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(addressField)
@@ -134,41 +128,41 @@ public class Confirmation extends javax.swing.JFrame {
                                         .addComponent(nameField))))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(261, 261, 261)
-                        .addComponent(jButton1)))
+                        .addComponent(ConfirmationButton)))
                 .addContainerGap(110, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addComponent(titleLable)
                 .addGap(40, 40, 40)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
+                    .addComponent(nameLable)
                     .addComponent(nameField))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
+                    .addComponent(addressLable)
                     .addComponent(addressField))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
+                    .addComponent(ccnLable)
                     .addComponent(creditcardField))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel6)
+                .addComponent(itemsLable)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
+                .addComponent(itemsPane, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1)
+                .addComponent(ConfirmationButton)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void ConfirmationButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConfirmationButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_ConfirmationButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -200,22 +194,28 @@ public class Confirmation extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Confirmation("TESTNAME", "TEST ADDRESS", "TEST CCN").setVisible(true);
+                
+                List<Item> itemsList = new ArrayList<Item>();
+                
+                for(int i = 0 ; i < 10 ; ++i)
+                    itemsList.add(new Item(i, "item"+Integer.toString(i), 22.0, "lol price","lol manufacturer", 5, false));
+                
+                new Confirmation("TESTNAME", "TEST ADDRESS", "TEST CCN", itemsList).setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton ConfirmationButton;
     private javax.swing.JLabel addressField;
+    private javax.swing.JLabel addressLable;
+    private javax.swing.JLabel ccnLable;
     private javax.swing.JLabel creditcardField;
+    private javax.swing.JLabel itemsLable;
+    private javax.swing.JScrollPane itemsPane;
     private javax.swing.JTable itemsTable;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel nameField;
+    private javax.swing.JLabel nameLable;
+    private javax.swing.JLabel titleLable;
     // End of variables declaration//GEN-END:variables
 }
