@@ -5,19 +5,81 @@
  */
 package com.cpe365.store.GUI;
 
+import com.cpe365.store.Data.Item;
+import java.util.*;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Owner
  */
 public class ViewCart extends javax.swing.JFrame {
 
+    List<Item> listofItem;
+    DefaultTableModel model;
+    HashMap<String, Integer> quanMap;
+    double sum;
+    
+    
+     private void setTable(HashMap<String, Integer> quanMap, List<Item> listofItem) {
+        //hacky solution. Remove duplicate
+        Set<Item> hs = new HashSet<>(); 
+        
+        hs.addAll(listofItem);
+        //System.out.println(hs);
+        for (String key : quanMap.keySet())
+        {
+            String name = key;
+            Item item = getItemFromList(name, listofItem);
+            int count = quanMap.get(name);
+            double price = item.getPrice();
+            double total = price * count;
+            Object[] row = new Object[]{name, count, price, Double.toString(total)};
+            model.addRow(row);
+            
+        }
+        /*
+        for(Item item : hs)
+        {
+            String name = item.getName();
+            int count = quanMap.get(name);
+            double price = item.getPrice();
+            double total = price * count;
+            Object[] row = new Object[]{name, count, price, Double.toString(total)};
+            model.addRow(row);
+        }
+        */
+        
+    }
+     
     /**
      * Creates new form ViewCart
      */
-    public ViewCart() {
+    public ViewCart(List<Item> items, HashMap<String, Integer> quanMap) {
         initComponents();
+        this.listofItem = items;
+        model = (DefaultTableModel) this.cartItemList.getModel();
+        this.quanMap = quanMap;
+        sum = 0;
+        for (Item item : items)
+        {
+            sum+= item.getPrice();
+        }
+        totalSum.setText("$" + sum);
+        setTable(quanMap, listofItem);
     }
 
+    public Item getItemFromList(String item, List<Item> items)
+    {
+        
+        for (Item s : items)
+            {
+                if (item.equals(s.getName())){
+                    return s;
+                }
+            }
+        return null;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -30,9 +92,9 @@ public class ViewCart extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        totalSum = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        cartItemList = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -47,20 +109,17 @@ public class ViewCart extends javax.swing.JFrame {
 
         jLabel2.setText("Total : ");
 
-        jLabel3.setText("$");
+        totalSum.setText("$");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        cartItemList.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "Item", "Quantitity", "Price", "Total"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(cartItemList);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -77,7 +136,7 @@ public class ViewCart extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel3)
+                                .addComponent(totalSum)
                                 .addGap(254, 254, 254)
                                 .addComponent(jButton1))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -97,7 +156,7 @@ public class ViewCart extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3)
+                            .addComponent(totalSum)
                             .addComponent(jButton1))
                         .addGap(38, 38, 38))))
         );
@@ -139,17 +198,21 @@ public class ViewCart extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ViewCart().setVisible(true);
+                List<Item> items = new ArrayList<Item>();
+                HashMap<String, Integer> quanMap = new HashMap<String, Integer>();
+                new ViewCart(items, quanMap).setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable cartItemList;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JLabel totalSum;
     // End of variables declaration//GEN-END:variables
+
+   
 }

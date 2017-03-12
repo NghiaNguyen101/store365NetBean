@@ -90,4 +90,10 @@ public class Item {
                 "\tstock: " + stock + ",\n" +
                 "\tdiscontinued: " + discontinued + "\n}";
     }
+    
+    @Override
+    public boolean equals(Object s)
+    {
+        return ((Item)s).getId() == this.id;
+    }
 }

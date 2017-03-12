@@ -10,6 +10,7 @@ import com.cpe365.store.Data.Item;
 import static java.lang.System.exit;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,6 +28,7 @@ public class ItemList extends javax.swing.JFrame {
     DefaultTableModel model;
     DefaultListModel listmodel;
     List<Item> cartItem;
+    HashMap<String, Integer> quanMap;
     
     protected final void setItems(List<Item> items)
     {
@@ -54,9 +56,13 @@ public class ItemList extends javax.swing.JFrame {
         initComponents();
         itemDAO= new ItemDAO();
         model = (DefaultTableModel) this.tableItemList.getModel();
-        listmodel=new DefaultListModel();
+        cartItem = new ArrayList<Item>();
+        quanMap = new HashMap<String, Integer>();
+        
+        //can't cast
+        listmodel= new DefaultListModel();
+        listCurrentItem.setModel(listmodel);
         listmodel.removeAllElements();
-        //cartItem = new List<Item>();
         
         try 
         {
@@ -205,21 +211,36 @@ public class ItemList extends javax.swing.JFrame {
     private void addItemButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addItemButtonActionPerformed
         // TODO add your handling code here:
         int columnID = 0;
-        int columnName = 0;
+        int columnName = 1;
         int row = tableItemList.getSelectedRow();
         
         //get id
         String idString = model.getValueAt(row, columnID).toString();
-        
-        
+        try {
+            Item selectedItem = itemDAO.getItem(Integer.parseInt(idString));
+            cartItem.add(selectedItem);
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(ItemList.class.getName()).log(Level.SEVERE, null, ex);
+        }
+               
         //get name
         String name= model.getValueAt(row, columnName).toString();
-        
+        //System.out.println(idString + " " + name);
+        if (quanMap.containsKey(name))
+        {
+            quanMap.put(name, quanMap.get(name)+1);
+        }
+        else 
+        {
+            quanMap.put(name, 1);
+        }
+        listmodel.addElement(name);
     }//GEN-LAST:event_addItemButtonActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        ViewCart viewCart = new ViewCart();
+        ViewCart viewCart = new ViewCart(cartItem, quanMap);
         viewCart.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jButton3ActionPerformed
