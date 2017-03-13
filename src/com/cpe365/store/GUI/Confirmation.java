@@ -6,11 +6,16 @@
 package com.cpe365.store.GUI;
 
 import com.cpe365.store.Data.Item;
+import com.cpe365.store.Data.SelectItem;
+import com.cpe365.store.DAO.TransactionDAO;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -23,16 +28,24 @@ public class Confirmation extends javax.swing.JFrame {
     String customerAddress;
     String customerCcn;
     HashMap<Item, Integer> items;
+    LinkedList<SelectItem> selectItem;
+    TransactionDAO transactionDAO;
+    CustomerInfo parent;
     /**
      * Creates new form Confirmation
      */
-    public Confirmation(HashMap<Item, Integer> items, String customerName, String customerAddress, String customerCcn) {
+    public Confirmation(CustomerInfo parent, HashMap<Item, Integer> items, String customerName, String customerAddress, String customerCcn) {
+        this.parent = parent;
+        
         this.customerName = customerName;
         this.customerAddress = customerAddress;
         this.customerCcn = customerCcn;
         this.items = items;
         initComponents();
         setLocationRelativeTo(null);
+        
+        selectItem = new LinkedList<SelectItem>();
+        transactionDAO = new TransactionDAO();
         
         double totalPrice = 0;
         if(items != null){
@@ -45,6 +58,8 @@ public class Confirmation extends javax.swing.JFrame {
                 model.addRow(new Object[]{item.getId(), item.getName(), qty, item.getPrice(), item.getPrice()*qty});
                 totalPrice += item.getPrice()*qty;
                 it.remove(); // avoids a ConcurrentModificationException
+                
+                selectItem.add(new SelectItem(item.getId(), qty, item.getPrice()));
             }
             
         }
@@ -191,6 +206,15 @@ public class Confirmation extends javax.swing.JFrame {
 
     private void ConfirmationButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConfirmationButtonActionPerformed
         // TODO add your handling code here:
+        try {
+            transactionDAO.postTransaction(customerName, customerAddress, customerCcn, selectItem);
+            JOptionPane.showMessageDialog(this, "Order Complete!");
+            parent.childTerminated();
+            this.dispose();
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_ConfirmationButtonActionPerformed
 
     /**

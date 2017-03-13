@@ -6,6 +6,7 @@
 package com.cpe365.store.GUI;
 
 import com.cpe365.store.Data.Item;
+import java.sql.SQLException;
 import java.util.HashMap;
 import javax.swing.JOptionPane;
 
@@ -17,10 +18,12 @@ public class CustomerInfo extends javax.swing.JFrame {
 
     
     private HashMap<Item, Integer> items;
+    ViewCart parent;
     /**
      * Creates new form CustomerInfo
      */
-    public CustomerInfo(HashMap<Item, Integer> items) {
+    public CustomerInfo(ViewCart parent, HashMap<Item, Integer> items) {
+        this.parent = parent;
         this.items = items;
         initComponents();
         setLocationRelativeTo(null);
@@ -148,7 +151,7 @@ public class CustomerInfo extends javax.swing.JFrame {
         } else if(!validCcn(ccnField.getText())){
             JOptionPane.showMessageDialog(null, "Invalid CreditcardNumber");
         } else {
-            Confirmation confirmationFrame = new Confirmation(items, nameField.getText().trim(), addressField.getText().trim(), ccnField.getText().replaceAll("\\s+",""));
+            Confirmation confirmationFrame = new Confirmation(this, items, nameField.getText().trim(), addressField.getText().trim(), ccnField.getText().replaceAll("\\s+",""));
             confirmationFrame.setVisible(true);
             this.setVisible(false);
         }
@@ -162,6 +165,12 @@ public class CustomerInfo extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_ccnFieldActionPerformed
 
+    public void childTerminated() throws SQLException{
+        parent.childTerminated();
+        
+        this.dispose();
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -192,7 +201,7 @@ public class CustomerInfo extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CustomerInfo(null).setVisible(true);
+               // new CustomerInfo(null).setVisible(true);
             }
         });
     }
