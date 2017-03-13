@@ -5,6 +5,8 @@
  */
 package com.cpe365.store.GUI;
 
+import com.cpe365.store.Data.Item;
+import java.util.HashMap;
 import javax.swing.JOptionPane;
 
 /**
@@ -13,10 +15,13 @@ import javax.swing.JOptionPane;
  */
 public class CustomerInfo extends javax.swing.JFrame {
 
+    
+    private HashMap<Item, Integer> items;
     /**
      * Creates new form CustomerInfo
      */
-    public CustomerInfo() {
+    public CustomerInfo(HashMap<Item, Integer> items) {
+        this.items = items;
         initComponents();
         setLocationRelativeTo(null);
     }
@@ -143,7 +148,7 @@ public class CustomerInfo extends javax.swing.JFrame {
         } else if(!validCcn(ccnField.getText())){
             JOptionPane.showMessageDialog(null, "Invalid CreditcardNumber");
         } else {
-            Confirmation confirmationFrame = new Confirmation(nameField.getText().trim(), addressField.getText().trim(), ccnField.getText().replaceAll("\\s+",""), null);
+            Confirmation confirmationFrame = new Confirmation(items, nameField.getText().trim(), addressField.getText().trim(), ccnField.getText().replaceAll("\\s+",""));
             confirmationFrame.setVisible(true);
             this.setVisible(false);
         }
@@ -187,7 +192,7 @@ public class CustomerInfo extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CustomerInfo().setVisible(true);
+                new CustomerInfo(null).setVisible(true);
             }
         });
     }
