@@ -92,8 +92,15 @@ public class Item {
     }
     
     @Override
-    public boolean equals(Object s)
-    {
-        return ((Item)s).getId() == this.id;
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (!Item.class.isAssignableFrom(obj.getClass())) {
+            return false;
+        }
+        final Item other = (Item) obj;
+        
+        return this.id != other.id;
     }
 }

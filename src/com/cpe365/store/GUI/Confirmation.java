@@ -7,7 +7,10 @@ package com.cpe365.store.GUI;
 
 import com.cpe365.store.Data.Item;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -19,11 +22,11 @@ public class Confirmation extends javax.swing.JFrame {
     String customerName;
     String customerAddress;
     String customerCcn;
-    List<Item> items;
+    HashMap<Item, Integer> items;
     /**
      * Creates new form Confirmation
      */
-    public Confirmation(String customerName, String customerAddress, String customerCcn, List<Item> items) {
+    public Confirmation(HashMap<Item, Integer> items, String customerName, String customerAddress, String customerCcn) {
         this.customerName = customerName;
         this.customerAddress = customerAddress;
         this.customerCcn = customerCcn;
@@ -34,10 +37,16 @@ public class Confirmation extends javax.swing.JFrame {
         double totalPrice = 0;
         if(items != null){
             DefaultTableModel model = (DefaultTableModel) itemsTable.getModel();
-            for(Item item : items){
-                model.addRow(new Object[]{item.getId(), item.getName(), item.getStock(), item.getPrice(), item.getPrice()*item.getStock()});
-                totalPrice += item.getPrice()*item.getStock();
+            Iterator it = items.entrySet().iterator();
+            while (it.hasNext()) {
+                Map.Entry<Item, Integer> pair = (Map.Entry<Item, Integer>)it.next();
+                Item item = pair.getKey();
+                int qty = pair.getValue();
+                model.addRow(new Object[]{item.getId(), item.getName(), qty, item.getPrice(), item.getPrice()*qty});
+                totalPrice += item.getPrice()*qty;
+                it.remove(); // avoids a ConcurrentModificationException
             }
+            
         }
         priceLabel.setText(Double.toString(totalPrice));
     }
@@ -220,7 +229,7 @@ public class Confirmation extends javax.swing.JFrame {
                 for(int i = 0 ; i < 10 ; ++i)
                     itemsList.add(new Item(i, "item"+Integer.toString(i), 22.0, "lol price","lol manufacturer", 5, false));
                 
-                new Confirmation("TESTNAME", "TEST ADDRESS", "TEST CCN", itemsList).setVisible(true);
+                //new Confirmation("TESTNAME", "TEST ADDRESS", "TEST CCN", itemsList).setVisible(true);
             }
         });
     }

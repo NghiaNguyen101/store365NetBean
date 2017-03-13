@@ -20,10 +20,12 @@ public class ViewCart extends javax.swing.JFrame {
     HashMap<String, Integer> quanMap;
     double sum;
     
+    HashMap<Item, Integer> pls;
     
      private void setTable(HashMap<String, Integer> quanMap, List<Item> listofItem) {
         //hacky solution. Remove duplicate
         Set<Item> hs = new HashSet<>(); 
+        pls = new HashMap<Item, Integer>();
         
         hs.addAll(listofItem);
         //System.out.println(hs);
@@ -37,18 +39,8 @@ public class ViewCart extends javax.swing.JFrame {
             Object[] row = new Object[]{name, count, price, Double.toString(total)};
             model.addRow(row);
             
+            pls.put(item, count);
         }
-        /*
-        for(Item item : hs)
-        {
-            String name = item.getName();
-            int count = quanMap.get(name);
-            double price = item.getPrice();
-            double total = price * count;
-            Object[] row = new Object[]{name, count, price, Double.toString(total)};
-            model.addRow(row);
-        }
-        */
         
     }
      
@@ -165,7 +157,9 @@ public class ViewCart extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        CustomerInfo customerInfo = new CustomerInfo(pls);
+        customerInfo.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
