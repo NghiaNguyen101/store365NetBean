@@ -40,12 +40,11 @@ public class ViewCart extends javax.swing.JFrame {
             double price = item.getPrice();
             double total = price * count;
             Object[] row = new Object[]{name, count, price, Double.toString(total)};
-            model.addRow(row);
-            
+            model.addRow(row);       
             pls.put(item, count);
         }
-     
-        setLocationRelativeTo(null);
+ 
+        setLocationRelativeTo(null);       
     }
      
     /**
@@ -163,6 +162,7 @@ public class ViewCart extends javax.swing.JFrame {
         CustomerInfo customerInfo = new CustomerInfo(this, pls);
         customerInfo.setVisible(true);
         this.setVisible(false);
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     public void childTerminated() throws SQLException{
