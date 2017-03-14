@@ -48,6 +48,7 @@ public class CustomerInfo extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         ccnField = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         jRadioButton1.setText("jRadioButton1");
 
@@ -88,6 +89,13 @@ public class CustomerInfo extends javax.swing.JFrame {
             }
         });
 
+        jButton2.setText("Back");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -111,6 +119,8 @@ public class CustomerInfo extends javax.swing.JFrame {
                 .addContainerGap(161, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jButton2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1)
                 .addGap(62, 62, 62))
         );
@@ -132,7 +142,9 @@ public class CustomerInfo extends javax.swing.JFrame {
                     .addComponent(jLabel4)
                     .addComponent(ccnField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 148, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2))
                 .addGap(33, 33, 33))
         );
 
@@ -164,6 +176,12 @@ public class CustomerInfo extends javax.swing.JFrame {
     private void ccnFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ccnFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ccnFieldActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        parent.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     public void childTerminated() throws SQLException{
         parent.childTerminated();
@@ -210,6 +228,7 @@ public class CustomerInfo extends javax.swing.JFrame {
     private javax.swing.JTextField addressField;
     private javax.swing.JTextField ccnField;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

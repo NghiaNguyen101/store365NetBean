@@ -57,7 +57,6 @@ public class Confirmation extends javax.swing.JFrame {
                 int qty = pair.getValue();
                 model.addRow(new Object[]{item.getId(), item.getName(), qty, item.getPrice(), item.getPrice()*qty});
                 totalPrice += item.getPrice()*qty;
-                it.remove(); // avoids a ConcurrentModificationException
                 
                 selectItem.add(new SelectItem(item.getId(), qty, item.getPrice()));
             }
@@ -89,6 +88,7 @@ public class Confirmation extends javax.swing.JFrame {
         priceLabel = new javax.swing.JLabel();
         priceField = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -138,6 +138,13 @@ public class Confirmation extends javax.swing.JFrame {
 
         jLabel1.setText("Total Price:");
 
+        jButton1.setText("Back");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -148,10 +155,12 @@ public class Confirmation extends javax.swing.JFrame {
                         .addGap(258, 258, 258)
                         .addComponent(titleLable))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(261, 261, 261)
+                        .addGap(201, 201, 201)
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(ConfirmationButton))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(63, 63, 63)
+                        .addGap(60, 60, 60)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(1, 1, 1)
@@ -173,7 +182,7 @@ public class Confirmation extends javax.swing.JFrame {
                                         .addComponent(addressField)
                                         .addComponent(creditcardField)
                                         .addComponent(nameField)))))))
-                .addContainerGap(110, Short.MAX_VALUE))
+                .addContainerGap(60, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -202,7 +211,9 @@ public class Confirmation extends javax.swing.JFrame {
                     .addComponent(priceField)
                     .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
-                .addComponent(ConfirmationButton)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(ConfirmationButton)
+                    .addComponent(jButton1))
                 .addContainerGap())
         );
 
@@ -221,6 +232,12 @@ public class Confirmation extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }//GEN-LAST:event_ConfirmationButtonActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        parent.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -272,6 +289,7 @@ public class Confirmation extends javax.swing.JFrame {
     private javax.swing.JLabel itemsLable;
     private javax.swing.JScrollPane itemsPane;
     private javax.swing.JTable itemsTable;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel nameField;
     private javax.swing.JLabel nameLable;
