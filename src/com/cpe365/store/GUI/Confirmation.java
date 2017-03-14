@@ -63,7 +63,7 @@ public class Confirmation extends javax.swing.JFrame {
             }
             
         }
-        priceLabel.setText(Double.toString(totalPrice));
+        priceLabel.setText("$" + Double.toString(totalPrice));
     }
 
     /**
@@ -88,6 +88,7 @@ public class Confirmation extends javax.swing.JFrame {
         nameField = new javax.swing.JLabel();
         priceLabel = new javax.swing.JLabel();
         priceField = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -135,6 +136,8 @@ public class Confirmation extends javax.swing.JFrame {
 
         priceLabel.setText("Price:");
 
+        jLabel1.setText("Total Price:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -151,9 +154,11 @@ public class Confirmation extends javax.swing.JFrame {
                         .addGap(63, 63, 63)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(12, 12, 12)
+                                .addGap(1, 1, 1)
+                                .addComponent(jLabel1)
+                                .addGap(16, 16, 16)
                                 .addComponent(priceLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGap(18, 18, 18)
                                 .addComponent(priceField, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(itemsPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 485, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -188,14 +193,14 @@ public class Confirmation extends javax.swing.JFrame {
                     .addComponent(ccnLable)
                     .addComponent(creditcardField))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-
                 .addComponent(itemsLable)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(itemsPane, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(priceLabel)
-                    .addComponent(priceField))
+                    .addComponent(priceField)
+                    .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addComponent(ConfirmationButton)
                 .addContainerGap())
@@ -267,6 +272,7 @@ public class Confirmation extends javax.swing.JFrame {
     private javax.swing.JLabel itemsLable;
     private javax.swing.JScrollPane itemsPane;
     private javax.swing.JTable itemsTable;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel nameField;
     private javax.swing.JLabel nameLable;
     private javax.swing.JLabel priceField;

@@ -9,6 +9,7 @@ import com.cpe365.store.DAO.ItemDAO;
 import com.cpe365.store.Data.Item;
 import java.util.List;
 import static java.lang.System.exit;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 
@@ -39,6 +40,7 @@ public class RemoveItem extends javax.swing.JFrame {
             System.out.println("Failed to retrieve items");
             exit(0);
         }
+        setLocationRelativeTo(null); 
     }
     
     private void setItems(List<Item> itemList) {
@@ -65,6 +67,7 @@ public class RemoveItem extends javax.swing.JFrame {
     private void removeItemDB(int itemID) {
         try{
             itemDAO.deleteItem(itemID);
+            JOptionPane.showMessageDialog(this, "Delete item successful!");
         } catch (Exception e) {
             System.out.println("Could not delete item");
             exit(0);
