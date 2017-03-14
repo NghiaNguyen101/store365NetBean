@@ -35,21 +35,8 @@ public class ViewCart extends javax.swing.JFrame {
             double price = item.getPrice();
             double total = price * count;
             Object[] row = new Object[]{name, count, price, Double.toString(total)};
-            model.addRow(row);
-            
+            model.addRow(row);         
         }
-        /*
-        for(Item item : hs)
-        {
-            String name = item.getName();
-            int count = quanMap.get(name);
-            double price = item.getPrice();
-            double total = price * count;
-            Object[] row = new Object[]{name, count, price, Double.toString(total)};
-            model.addRow(row);
-        }
-        */
-        
     }
      
     /**
@@ -166,6 +153,7 @@ public class ViewCart extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+                
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
