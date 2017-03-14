@@ -25,6 +25,7 @@ public class AddItem extends javax.swing.JFrame {
         initComponents();
         itemDAO = new ItemDAO();
         resetFields();
+        setLocationRelativeTo(null); 
     }
 
     /**
