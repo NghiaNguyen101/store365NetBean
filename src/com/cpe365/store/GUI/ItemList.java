@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -77,6 +78,7 @@ public class ItemList extends javax.swing.JFrame {
             exit(0);
         }
             
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -238,9 +240,27 @@ public class ItemList extends javax.swing.JFrame {
         listmodel.addElement(name);
     }//GEN-LAST:event_addItemButtonActionPerformed
 
+    public void childTerminated() throws SQLException{
+        this.setVisible(true);
+        cartItem.clear();
+        quanMap.clear();
+        listmodel.clear();
+        listCurrentItem.clearSelection();
+        tableItemList.clearSelection();
+        try {
+            setItems(itemDAO.getAllItems());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        ViewCart viewCart = new ViewCart(cartItem, quanMap);
+        if (cartItem.size() == 0) {
+            JOptionPane.showMessageDialog(this, "No items in cart!");
+            return;
+        }
+        ViewCart viewCart = new ViewCart(this, cartItem, quanMap);
         viewCart.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jButton3ActionPerformed
